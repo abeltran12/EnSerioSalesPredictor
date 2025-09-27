@@ -1,0 +1,6 @@
+@EnSerioSalesPredictor.Api_HostAddress = http://localhost:5152
+
+GET {{EnSerioSalesPredictor.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
