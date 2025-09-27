@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("EnSerioSalesPredictor.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+21c0bedb6aa4a2f1c2fe9c3839e60cc745e9ff4c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+823c9e643c29257692f128edcd3bc53b534cb1e6")]
 [assembly: System.Reflection.AssemblyProductAttribute("EnSerioSalesPredictor.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("EnSerioSalesPredictor.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

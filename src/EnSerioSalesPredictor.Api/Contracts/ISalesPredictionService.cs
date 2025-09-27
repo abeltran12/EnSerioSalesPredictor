@@ -5,5 +5,5 @@ namespace EnSerioSalesPredictor.Api.Contracts;
 
 public interface ISalesPredictionService
 {
-    Task<PagedList<SalesPredictionDto>> GetSalesPredictionsAsync(RequestParameters parameters);
+    Task<(PagedList<SalesPredictionDto>, MetaData metaData)> GetSalesPredictionsAsync(RequestParameters parameters);
 }

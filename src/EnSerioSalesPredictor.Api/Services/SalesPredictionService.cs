@@ -9,13 +9,13 @@ public class SalesPredictionService(ISalesPredictionRepository repository) : ISa
 {
     private readonly ISalesPredictionRepository _repository = repository;
 
-    public async Task<PagedList<SalesPredictionDto>> GetSalesPredictionsAsync(
+    public async Task<(PagedList<SalesPredictionDto>, MetaData metaData)> GetSalesPredictionsAsync(
         RequestParameters parameters)
     {
         var salesPredictions = await _repository.GetSalesPredictionsAsync(parameters);
         PagedList<SalesPredictionDto> pagedList = MapToDto(parameters, salesPredictions);
 
-        return pagedList;
+        return (pagedList, pagedList.MetaData);
     }
 
     private static PagedList<SalesPredictionDto> MapToDto(RequestParameters parameters, List<SalesPrediction> salesPredictions)

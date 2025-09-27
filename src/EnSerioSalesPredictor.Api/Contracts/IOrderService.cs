@@ -5,6 +5,6 @@ namespace EnSerioSalesPredictor.Api.Contracts;
 
 public interface IOrderService
 {
-    Task<PagedList<OrderDto>> GetOrdersAsync(int id, RequestParameters parameters);
+    Task<(PagedList<OrderDto>, MetaData metaData)> GetOrdersAsync(int id, RequestParameters parameters);
     Task<int> CreateOrderAsync(int id, CreateOrderDto orderDto);
 }

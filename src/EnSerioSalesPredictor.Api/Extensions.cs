@@ -4,7 +4,6 @@ using EnSerioSalesPredictor.Api.Repositories;
 using EnSerioSalesPredictor.Api.Services;
 using EnSerioSalesPredictor.Api.Validators;
 using FluentValidation;
-using FluentValidation.AspNetCore;
 
 namespace EnSerioSalesPredictor.Api;
 
@@ -39,5 +38,16 @@ public static class Extensions
         services.AddScoped<IOrderService, OrderService>();
 
         services.AddValidatorsFromAssemblyContaining<CreateOrderDtoValidator>();
+
+        services.AddCors(options =>
+        {
+            options.AddPolicy("CorsPolicy", builder =>
+                builder.AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowCredentials()
+                .WithExposedHeaders("X-Pagination")
+            );
+        });
     }
 }

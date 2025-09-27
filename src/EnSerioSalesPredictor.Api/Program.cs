@@ -1,3 +1,4 @@
+using System.Text.Json;
 using EnSerioSalesPredictor.Api;
 using EnSerioSalesPredictor.Api.Contracts;
 using EnSerioSalesPredictor.Api.Dtos;
@@ -44,6 +45,7 @@ app.MapGet("/products", async (IProductService service) =>
 });
 
 app.MapGet("/salespredictions", async (
+    HttpContext context,
     [FromServices] ISalesPredictionService service,
     [FromQuery] int pageNumber = 1,
     [FromQuery] int pageSize = 10,
@@ -58,10 +60,15 @@ app.MapGet("/salespredictions", async (
             OrderBy = orderBy,
             Sort = sort
         });
-    return Results.Ok(sales);
+
+    context.Response.Headers.TryAdd("X-Pagination", 
+        JsonSerializer.Serialize(sales.metaData));
+    
+    return Results.Ok(sales.Item1);
 });
 
 app.MapGet("/customers/{id}/orders", async (
+    HttpContext context,
     [FromServices] IOrderService service,
     [FromRoute] int id,
     [FromQuery] int pageNumber = 1,
@@ -78,7 +85,11 @@ app.MapGet("/customers/{id}/orders", async (
             OrderBy = orderBy,
             Sort = sort
         });
-    return Results.Ok(orders);
+
+    context.Response.Headers.TryAdd("X-Pagination", 
+        JsonSerializer.Serialize(orders.metaData));
+
+    return Results.Ok(orders.Item1);
 });
 
 app.MapPost("/customers/{id}/orders", async (

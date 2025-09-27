@@ -9,12 +9,12 @@ public class OrderService(IOrderRepository repository) : IOrderService
 {
     private readonly IOrderRepository _repository = repository;
 
-    public async Task<PagedList<OrderDto>> GetOrdersAsync(int id, RequestParameters parameters)
+    public async Task<(PagedList<OrderDto>, MetaData metaData)> GetOrdersAsync(int id, RequestParameters parameters)
     {
         var orders = await _repository.GetOrdersAsync(id, parameters);
         PagedList<OrderDto> pagedList = MapToDto(parameters, orders);
 
-        return pagedList;
+        return (pagedList, pagedList.MetaData);
     }
 
     public async Task<int> CreateOrderAsync(int id, CreateOrderDto orderDto)
