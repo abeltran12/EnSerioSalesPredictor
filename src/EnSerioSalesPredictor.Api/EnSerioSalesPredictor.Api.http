@@ -1,6 +1,54 @@
-@EnSerioSalesPredictor.Api_HostAddress = http://localhost:5152
+@ApiHostAddress = http://localhost:5152
 
-GET {{EnSerioSalesPredictor.Api_HostAddress}}/weatherforecast/
+### Get Shippers
+
+GET {{ApiHostAddress}}/shippers/
 Accept: application/json
 
-###
+### Get employees
+
+GET {{ApiHostAddress}}/employees/
+Accept: application/json
+
+
+### Get products
+
+GET {{ApiHostAddress}}/products/
+Accept: application/json
+
+
+### Get sales predictions
+
+GET {{ApiHostAddress}}/salespredictions?pageNumber=3&pageSize=10&orderBy=customerName&sort=desc
+Accept: application/json
+
+### Get orders by client
+
+GET {{ApiHostAddress}}/customers/1/orders?pageNumber=1&pageSize=10&orderBy=orderid&sort=desc
+Accept: application/json
+
+
+### Add order with product
+
+POST {{ApiHostAddress}}/customers/1/orders
+Accept: application/json
+Content-Type: application/json
+
+{
+  "EmpId": 5,
+  "ShipperId": 1,
+  "ShipName": "ACME Corp",
+  "ShipAddress": "123 Main St",
+  "ShipCity": "Bogotá",
+  "OrderDate": "2025-09-27T14:30:00",
+  "RequiredDate": "2025-10-05",
+  "ShippedDate": "2025-09-29",
+  "Freight": 150.75,
+  "ShipCountry": "Colombia",
+  "createOrderDetails": {
+    "ProductId": 10,
+    "UnitPrice": 25.50,
+    "Qty": 4,
+    "Discount": 0.10
+  }
+}

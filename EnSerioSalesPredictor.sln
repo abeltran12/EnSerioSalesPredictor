@@ -7,6 +7,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{827E0CD3-B72
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnSerioSalesPredictor.Api", "src\EnSerioSalesPredictor.Api\EnSerioSalesPredictor.Api.csproj", "{D72AFF34-FD26-4AD0-8CFD-A73DCF01DCC2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnSerioSalesPredictor.Api.Test", "src\EnSerioSalesPredictor.Api.Test\EnSerioSalesPredictor.Api.Test.csproj", "{31F0A364-22C1-4DEF-9F4E-3A4ECA7C77E2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,11 +31,24 @@ Global
 		{D72AFF34-FD26-4AD0-8CFD-A73DCF01DCC2}.Release|x64.Build.0 = Release|Any CPU
 		{D72AFF34-FD26-4AD0-8CFD-A73DCF01DCC2}.Release|x86.ActiveCfg = Release|Any CPU
 		{D72AFF34-FD26-4AD0-8CFD-A73DCF01DCC2}.Release|x86.Build.0 = Release|Any CPU
+		{31F0A364-22C1-4DEF-9F4E-3A4ECA7C77E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{31F0A364-22C1-4DEF-9F4E-3A4ECA7C77E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{31F0A364-22C1-4DEF-9F4E-3A4ECA7C77E2}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{31F0A364-22C1-4DEF-9F4E-3A4ECA7C77E2}.Debug|x64.Build.0 = Debug|Any CPU
+		{31F0A364-22C1-4DEF-9F4E-3A4ECA7C77E2}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{31F0A364-22C1-4DEF-9F4E-3A4ECA7C77E2}.Debug|x86.Build.0 = Debug|Any CPU
+		{31F0A364-22C1-4DEF-9F4E-3A4ECA7C77E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{31F0A364-22C1-4DEF-9F4E-3A4ECA7C77E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{31F0A364-22C1-4DEF-9F4E-3A4ECA7C77E2}.Release|x64.ActiveCfg = Release|Any CPU
+		{31F0A364-22C1-4DEF-9F4E-3A4ECA7C77E2}.Release|x64.Build.0 = Release|Any CPU
+		{31F0A364-22C1-4DEF-9F4E-3A4ECA7C77E2}.Release|x86.ActiveCfg = Release|Any CPU
+		{31F0A364-22C1-4DEF-9F4E-3A4ECA7C77E2}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{D72AFF34-FD26-4AD0-8CFD-A73DCF01DCC2} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
+		{31F0A364-22C1-4DEF-9F4E-3A4ECA7C77E2} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 	EndGlobalSection
 EndGlobal

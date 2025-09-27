@@ -1,12 +1,22 @@
+using EnSerioSalesPredictor.Api;
+using EnSerioSalesPredictor.Api.Contracts;
+using EnSerioSalesPredictor.Api.Dtos;
+using EnSerioSalesPredictor.Api.RequestFeautures;
+using FluentValidation;
+using Microsoft.AspNetCore.Mvc;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+builder.Services.AddProblemDetails();
+
+builder.Services.AddDependencies();
+
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+app.UseExceptionHandler();
+
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
@@ -14,28 +24,81 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
 
-app.MapGet("/weatherforecast", () =>
+app.MapGet("/shippers", async (IShipperService service) =>
 {
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast");
+    var shippers = await service.GetShipperAsync();
+    return Results.Ok(shippers);
+});
+
+app.MapGet("/employees", async (IEmployeeService service) =>
+{
+    var employees = await service.GetEmployeesAsync();
+    return Results.Ok(employees);
+});
+
+app.MapGet("/products", async (IProductService service) =>
+{
+    var products = await service.GetProductsAsync();
+    return Results.Ok(products);
+});
+
+app.MapGet("/salespredictions", async (
+    [FromServices] ISalesPredictionService service,
+    [FromQuery] int pageNumber = 1,
+    [FromQuery] int pageSize = 10,
+    [FromQuery] string orderBy = "",
+    [FromQuery] string sort = "") =>
+{
+    var sales = await service.GetSalesPredictionsAsync(
+        new RequestParameters
+        {
+            PageSize = pageSize,
+            PageNumber = pageNumber,
+            OrderBy = orderBy,
+            Sort = sort
+        });
+    return Results.Ok(sales);
+});
+
+app.MapGet("/customers/{id}/orders", async (
+    [FromServices] IOrderService service,
+    [FromRoute] int id,
+    [FromQuery] int pageNumber = 1,
+    [FromQuery] int pageSize = 10,
+    [FromQuery] string orderBy = "",
+    [FromQuery] string sort = "") =>
+{
+    var orders = await service.GetOrdersAsync(
+        id,
+        new RequestParameters
+        {
+            PageSize = pageSize,
+            PageNumber = pageNumber,
+            OrderBy = orderBy,
+            Sort = sort
+        });
+    return Results.Ok(orders);
+});
+
+app.MapPost("/customers/{id}/orders", async (
+    [FromServices] IOrderService service,
+    [FromRoute] int id,
+    [FromBody] CreateOrderDto dto,
+    IValidator<CreateOrderDto> validator) =>
+{
+    var validationResult = await validator.ValidateAsync(dto);
+    if (!validationResult.IsValid)
+    {
+        return Results.ValidationProblem(validationResult.ToDictionary());
+    }
+    
+    var result = await service.CreateOrderAsync(id, dto);
+
+    if (result == 0)
+        return Results.BadRequest("Order could not be created.");
+
+    return Results.Ok(result);
+});
 
 app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
