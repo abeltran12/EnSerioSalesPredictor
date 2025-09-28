@@ -13,12 +13,14 @@ public class SalesPredictionService(ISalesPredictionRepository repository) : ISa
         RequestParameters parameters)
     {
         var salesPredictions = await _repository.GetSalesPredictionsAsync(parameters);
-        PagedList<SalesPredictionDto> pagedList = MapToDto(parameters, salesPredictions);
+        PagedList<SalesPredictionDto> pagedList =
+            MapToDto(parameters, salesPredictions.Items, salesPredictions.TotalCount);
 
         return (pagedList, pagedList.MetaData);
     }
 
-    private static PagedList<SalesPredictionDto> MapToDto(RequestParameters parameters, List<SalesPrediction> salesPredictions)
+    private static PagedList<SalesPredictionDto> MapToDto(
+        RequestParameters parameters, List<SalesPrediction> salesPredictions, int total)
     {
         var result = salesPredictions
                     .Select(x => new SalesPredictionDto
@@ -30,7 +32,7 @@ public class SalesPredictionService(ISalesPredictionRepository repository) : ISa
 
         var pagedList = new PagedList<SalesPredictionDto>(
             result,
-            salesPredictions.Count,
+            total,
             parameters.PageNumber,
             parameters.PageSize
         );

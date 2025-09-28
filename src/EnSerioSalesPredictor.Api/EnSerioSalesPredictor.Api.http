@@ -19,12 +19,12 @@ Accept: application/json
 
 ### Get sales predictions
 
-GET {{ApiHostAddress}}/salespredictions?pageNumber=3&pageSize=10&orderBy=customerName&sort=desc
+GET {{ApiHostAddress}}/salespredictions?pageNumber=9&pageSize=10&orderBy=customerName&sort=desc
 Accept: application/json
 
 ### Get orders by client
 
-GET {{ApiHostAddress}}/customers/1/orders?pageNumber=1&pageSize=10&orderBy=orderid&sort=desc
+GET {{ApiHostAddress}}/customers/10/orders?pageNumber=1&pageSize=10&orderBy=orderid&sort=desc
 Accept: application/json
 
 

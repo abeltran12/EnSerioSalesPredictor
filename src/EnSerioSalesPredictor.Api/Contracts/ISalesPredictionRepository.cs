@@ -5,5 +5,5 @@ namespace EnSerioSalesPredictor.Api.Contracts;
 
 public interface ISalesPredictionRepository
 {
-    Task<List<SalesPrediction>> GetSalesPredictionsAsync(RequestParameters parameters);
+    Task<(List<SalesPrediction> Items, int TotalCount)> GetSalesPredictionsAsync(RequestParameters parameters);
 }

@@ -25,6 +25,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseCors("CorsPolicy");
 
 app.MapGet("/shippers", async (IShipperService service) =>
 {

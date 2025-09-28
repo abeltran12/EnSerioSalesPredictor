@@ -11,7 +11,7 @@ public class SalesPredictionRepository(DapperContext context) : ISalesPrediction
 {
     private readonly DapperContext _context = context;
 
-    public async Task<List<SalesPrediction>> GetSalesPredictionsAsync(RequestParameters parameters)
+    public async Task<(List<SalesPrediction> Items, int TotalCount)> GetSalesPredictionsAsync(RequestParameters parameters)
     {
         var dynamicParameters = new DynamicParameters();
         dynamicParameters.Add("PageNumber", parameters.PageNumber, DbType.Int32);
@@ -21,11 +21,14 @@ public class SalesPredictionRepository(DapperContext context) : ISalesPrediction
 
         using var connection = _context.CreateConnection();
 
-        var shippers = await connection.QueryAsync<SalesPrediction>(
+        var sales = await connection.QueryMultipleAsync(
             "SP_GET_SALES_PREDICTION", dynamicParameters,
             commandType: CommandType.StoredProcedure
         );
 
-        return shippers.ToList();
+        var totalCount = await sales.ReadFirstAsync<int>();
+        var items = (await sales.ReadAsync<SalesPrediction>()).ToList();
+
+        return (items, totalCount);
     }
 }

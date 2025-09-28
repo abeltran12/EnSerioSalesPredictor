@@ -1,0 +1,45 @@
+.dialog-header {
+  padding-left: 40px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.full-width {
+  grid-column: 1 / -1; /* Ship Name ocupa toda la fila */
+}
+
+/* Address, City, Country en la misma línea */
+.address-field {
+  grid-column: 1 / 2; /* primera columna */
+}
+
+.city-field {
+  grid-column: 2 / 3; /* segunda columna */
+}
+.country-field {
+  grid-column: 1 / 3; 
+}
+
+.form-grid, .details-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-row {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.form-row mat-form-field {
+  flex: 1;
+}
+
+.form-row .full-width {
+  width: 100%;
+}

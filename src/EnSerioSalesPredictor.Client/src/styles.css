@@ -1,0 +1,21 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/* Fondo y texto del modal */
+.mat-mdc-dialog-container .mdc-dialog__surface {
+  background: white !important; /* Azure Blue */
+  color: black !important;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+/* Opcional: botones más bonitos */
+.mat-mdc-dialog-actions button {
+  background: white !important;
+  color: green !important;
+  font-weight: bold;
+  border-radius: 6px;
+  padding: 4px 12px;
+}

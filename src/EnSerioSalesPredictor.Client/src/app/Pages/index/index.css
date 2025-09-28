@@ -1,0 +1,26 @@
+.green-btn {
+  color: green !important;
+}
+
+.red-btn {
+  color: red !important;
+}
+
+.black-header {
+  background-color: black;
+  color: white;
+  padding: 1rem;
+}
+
+.search-field {
+  width: 700px;
+}
+
+.search-icon {
+  cursor: pointer;
+  color: #666;
+}
+
+.search-icon:hover {
+  color: #333;
+}

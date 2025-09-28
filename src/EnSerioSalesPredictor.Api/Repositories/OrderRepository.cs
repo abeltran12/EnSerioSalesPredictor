@@ -12,7 +12,7 @@ public class OrderRepository(DapperContext context) : IOrderRepository
 {
     private readonly DapperContext _context = context;
 
-    public async Task<List<Order>> GetOrdersAsync(int id, RequestParameters parameters)
+    public async Task<(List<Order>, int TotalCount)> GetOrdersAsync(int id, RequestParameters parameters)
     {
         var dynamicParameters = new DynamicParameters();
         dynamicParameters.Add("CustomerId", id, DbType.Int32);
@@ -23,12 +23,15 @@ public class OrderRepository(DapperContext context) : IOrderRepository
 
         using var connection = _context.CreateConnection();
 
-        var shippers = await connection.QueryAsync<Order>(
+        var orders = await connection.QueryMultipleAsync(
             "SP_GET_CLIENT_ORDERS", dynamicParameters,
             commandType: CommandType.StoredProcedure
         );
 
-        return shippers.ToList();
+        var totalCount = await orders.ReadFirstAsync<int>();
+        var items = (await orders.ReadAsync<Order>()).ToList();
+
+        return (items, totalCount);
     }
 
     public async Task<int> CreateOrderAsync(int id, CreateOrderDto orderDto)

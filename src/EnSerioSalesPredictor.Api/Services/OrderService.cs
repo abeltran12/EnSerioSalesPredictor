@@ -12,7 +12,7 @@ public class OrderService(IOrderRepository repository) : IOrderService
     public async Task<(PagedList<OrderDto>, MetaData metaData)> GetOrdersAsync(int id, RequestParameters parameters)
     {
         var orders = await _repository.GetOrdersAsync(id, parameters);
-        PagedList<OrderDto> pagedList = MapToDto(parameters, orders);
+        PagedList<OrderDto> pagedList = MapToDto(parameters, orders.Item1, orders.TotalCount);
 
         return (pagedList, pagedList.MetaData);
     }
@@ -23,7 +23,8 @@ public class OrderService(IOrderRepository repository) : IOrderService
         return result;
     }
 
-    private static PagedList<OrderDto> MapToDto(RequestParameters parameters, List<Order> orders)
+    private static PagedList<OrderDto> MapToDto(
+        RequestParameters parameters, List<Order> orders, int total)
     {
         var result = orders
                     .Select(x => new OrderDto
@@ -38,7 +39,7 @@ public class OrderService(IOrderRepository repository) : IOrderService
 
         var pagedList = new PagedList<OrderDto>(
             result,
-            orders.Count,
+            total,
             parameters.PageNumber,
             parameters.PageSize
         );
